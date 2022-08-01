@@ -1,0 +1,2 @@
+# Include the handwritten .d.ts files in the language report
+*.d.ts -linguist-vendored
