@@ -1,0 +1,24 @@
+{
+  "name": "@emphori/promise",
+  "version": "0.0.1",
+  "description": "A strongly typed drop-in replacement for Promises",
+  "keywords": [],
+  "author": "Emphori (https://emphori.co)",
+  "contributors": [
+    "Iain Reid <iainreid382@gmail.com> (https://iainjreid.com)"
+  ],
+  "homepage": "https://github.com/emphori/promise#readme",
+  "license": "MIT",
+  "main": "./lib/promise.js",
+  "types": "./types/promise.d.ts",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/emphori/promise.git"
+  },
+  "bugs": {
+    "url": "https://github.com/emphori/promise/issues"
+  }
+}
