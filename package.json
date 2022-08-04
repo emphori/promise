@@ -10,14 +10,10 @@
   "license": "MIT",
   "type": "module",
   "exports": {
-    ".": {
-      "import": "./lib/promise.js",
-      "types": "./types/promise.d.ts"
-    }
+    ".": "./lib/promise.js"
   },
   "files": [
-    "lib",
-    "types"
+    "lib"
   ],
   "publishConfig": {
     "access": "public"
