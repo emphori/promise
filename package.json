@@ -1,7 +1,6 @@
 {
   "name": "@emphori/promise",
-  "version": "0.0.1",
-  "description": "A strongly typed drop-in replacement for Promises",
+  "description": "A strongly typed drop-in replacement for Promises in TypeScript",
   "keywords": [],
   "author": "Emphori (https://emphori.co)",
   "contributors": [
@@ -9,8 +8,17 @@
   ],
   "homepage": "https://github.com/emphori/promise#readme",
   "license": "MIT",
-  "main": "./lib/promise.js",
-  "types": "./types/promise.d.ts",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./lib/promise.js",
+      "types": "./types/promise.d.ts"
+    }
+  },
+  "files": [
+    "lib",
+    "types"
+  ],
   "publishConfig": {
     "access": "public"
   },
