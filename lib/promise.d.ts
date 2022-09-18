@@ -7,9 +7,9 @@ export interface Promise<T, E = unknown> {
     onfulfilled: ((_: T) => RT | Promise<RT, RE>) | null,
   ): Promise<RT, E | RE>;
 
-  catch<RT, RE>(
-    onrejected: ((_: E) => RT | Promise<RT, RE>) | null,
-  ): Promise<RT, RE>;
+  catch<RE>(
+    onrejected: ((_: E) => T | Promise<T, RE>) | null,
+  ): Promise<T, RE>;
 }
 
 /**
@@ -43,6 +43,17 @@ export interface PromiseConstructor {
    * @todo Document the "reject" method on the "PromiseConstructor"
    */
   reject(): Promise<never, void>;
+
+  /**
+   * @todo Document the "all" method on the "PromiseConstructor"
+   */
+  all<T extends unknown[] | []>(values: T): Promise<{ [P in keyof T]: ResolveType<T[P]> }, RejectType<T[number]>>;
 }
 
 export declare var Promise: PromiseConstructor;
+
+declare type ResolveType<T> = T extends Promise<infer X, any> ? X : never;
+declare type RejectType<T> = T extends Promise<any, infer X> ? X : never;
+
+declare type AssertResolves<T extends Promise<U, any>, U extends ResolveType<V>, V = T> = any;
+declare type AssertRejects<T extends Promise<any, U>, U extends RejectType<V>, V = T> = any;
