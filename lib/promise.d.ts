@@ -7,9 +7,9 @@ export interface Promise<T, E = unknown> {
     onfulfilled: ((_: T) => RT | Promise<RT, RE>) | null,
   ): Promise<RT, E | RE>;
 
-  catch<RT, RE>(
-    onrejected: ((_: E) => RT | Promise<RT, RE>) | null,
-  ): Promise<RT, RE>;
+  catch<RE>(
+    onrejected: ((_: E) => T | Promise<T, RE>) | null,
+  ): Promise<T, RE>;
 }
 
 /**
