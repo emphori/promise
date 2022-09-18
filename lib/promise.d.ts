@@ -51,3 +51,9 @@ export interface PromiseConstructor {
 }
 
 export declare var Promise: PromiseConstructor;
+
+declare type ResolveType<T> = T extends Promise<infer X, any> ? X : never;
+declare type RejectType<T> = T extends Promise<any, infer X> ? X : never;
+
+declare type AssertResolves<T extends Promise<U, any>, U extends ResolveType<V>, V = T> = any;
+declare type AssertRejects<T extends Promise<any, U>, U extends RejectType<V>, V = T> = any;
