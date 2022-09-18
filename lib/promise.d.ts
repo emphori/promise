@@ -43,6 +43,11 @@ export interface PromiseConstructor {
    * @todo Document the "reject" method on the "PromiseConstructor"
    */
   reject(): Promise<never, void>;
+
+  /**
+   * @todo Document the "all" method on the "PromiseConstructor"
+   */
+  all<T extends unknown[] | []>(values: T): Promise<{ [P in keyof T]: ResolveType<T[P]> }, RejectType<T[number]>>;
 }
 
 export declare var Promise: PromiseConstructor;
