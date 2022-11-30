@@ -10,6 +10,10 @@ export interface Promise<T, E = unknown> {
   catch<RE>(
     onrejected: ((_: E) => T | Promise<T, RE>) | null,
   ): Promise<T, RE>;
+
+  finally(
+    onfinally: (() => void) | null,
+  ): Promise<T, E>;
 }
 
 /**
