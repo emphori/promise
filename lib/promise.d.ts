@@ -2,14 +2,34 @@
  * A strongly typed extension to the Promise interface, allowing for type
  * assertions on both the resolved and rejected values.
  */
-export interface Promise<T, E = unknown> {
-  then<RT = void, RE = never>(
-    onfulfilled: ((_: T) => RT | Promise<RT, RE>) | null,
+export interface Promise<T, E = unknown> extends globalThis.Promise<T> {
+  /**
+   * A strongly typed `.then` statement.
+   */
+  then<RT, RE = never>(
+    onfulfilled: (_: T) => RT | Promise<RT, RE>,
   ): Promise<RT, E | RE>;
 
+  /**
+   * A weakly typed `.then` statement.
+   */
+  then<RT>(
+    onfulfilled: (_: T) => globalThis.PromiseLike<RT>,
+  ): Promise<RT, unknown>,
+
+  /**
+   * A strongly typed `.catch` statement.
+   */
   catch<RE>(
-    onrejected: ((_: E) => T | Promise<T, RE>) | null,
+    onrejected: (_: E) => T | Promise<T, RE>,
   ): Promise<T, RE>;
+
+  /**
+   * A weakly typed `.catch` statement.
+   */
+  catch(
+    onrejected: (_: E) => globalThis.PromiseLike<T>
+  ): Promise<T, unknown>,
 
   finally(
     onfinally: (() => void) | null,
@@ -26,6 +46,8 @@ export interface PromiseConstructor {
     resolve: (_: T | Promise<T, E>) => void,
     reject: (_: E | Promise<E, E>) => void,
   ) => void): Promise<T, E>;
+
+  resolve<T>(val: globalThis.Promise<T>): Promise<T, unknown>;
 
   /**
    * @todo Document the "resolve" method on the "PromiseConstructor"
@@ -51,7 +73,8 @@ export interface PromiseConstructor {
   /**
    * @todo Document the "all" method on the "PromiseConstructor"
    */
-  all<T extends unknown[] | []>(values: T): Promise<{ [P in keyof T]: ResolveType<T[P]> }, RejectType<T[number]>>;
+  all<T extends unknown[] | []>(values: T):
+    Promise<{ [P in keyof T]: ResolveType<T[P]> }, RejectType<T[number]>>;
 }
 
 export declare var Promise: PromiseConstructor;

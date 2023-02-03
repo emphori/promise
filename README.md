@@ -11,6 +11,9 @@ A strongly typed drop-in replacement for Promises in TypeScript.
 * **A simplified `.then` type signature** that disallows inline rejection
   handling in favour of explict calls to `.catch` when required.
 
+* **Incrementally adoptable** and backwards compatible with the weakly typed
+  Promises shipped with TypeScript.
+
 
 ## Installation
 
