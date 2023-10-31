@@ -14,7 +14,7 @@ export interface Promise<T, E = unknown> extends globalThis.Promise<T> {
    * A weakly typed `.then` statement.
    */
   then<RT>(
-    onfulfilled: (_: T) => globalThis.PromiseLike<RT>,
+    onfulfilled: (_: T) => PromiseLike<RT>,
   ): Promise<RT, unknown>,
 
   /**
@@ -28,7 +28,7 @@ export interface Promise<T, E = unknown> extends globalThis.Promise<T> {
    * A weakly typed `.catch` statement.
    */
   catch(
-    onrejected: (_: E) => globalThis.PromiseLike<T>
+    onrejected: (_: E) => PromiseLike<T>
   ): Promise<T, unknown>,
 
   finally(
@@ -84,3 +84,31 @@ declare type RejectType<T> = T extends Promise<any, infer X> ? X : never;
 
 declare type AssertResolves<T extends Promise<U, any>, U extends ResolveType<V>, V = T> = any;
 declare type AssertRejects<T extends Promise<any, U>, U extends RejectType<V>, V = T> = any;
+
+/**
+ * Upgrade a vanilla Promise to a strongly typed Promise while respecting
+ * function overloads.
+ *
+ * Support is provided for functions with four or fewer arguments.
+ *
+ * @remarks
+ *
+ * Credit has to go to the Stack Overflow answer linked below, which provided
+ * 90% of the solution for this beautiful piece of magic.
+ *
+ * {@link https://stackoverflow.com/a/64330561/4000053}
+ */
+type UpgradePromise<T, E = unknown> =
+  T extends
+    { (...args: infer A1): PromiseLike<infer R1>; (...args: infer A2): PromiseLike<infer R2>; (...args: infer A3): PromiseLike<infer R3>; (...args: infer A4): PromiseLike<infer R4>; } ?
+    { (...args: A1): Promise<R1, E>; (...args: A2): Promise<R2, E>; (...args: A3): Promise<R3, E>; (...args: A4): Promise<R4, E>; } :
+  T extends
+    { (...args: infer A1): PromiseLike<infer R1>; (...args: infer A2): PromiseLike<infer R2>; (...args: infer A3): PromiseLike<infer R3>; } ?
+    { (...args: A1): Promise<R1, E>; (...args: A2): Promise<R2, E>; (...args: A3): Promise<R3, E>; } :
+  T extends
+    { (...args: infer A1): PromiseLike<infer R1>; (...args: infer A2): PromiseLike<infer R2>; } ?
+    { (...args: A1): Promise<R1, E>; (...args: A2): Promise<R2, E>; } :
+  T extends
+    { (...args: infer A1): PromiseLike<infer R1>; } ?
+    { (...args: A1): Promise<R1, E>; } :
+  T;
