@@ -6,6 +6,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    permissions:
+      id-token: write # Required for NPM provenance via OIDC
+
     steps:
     - name: Checkout
       uses: actions/checkout@v3
