@@ -1,7 +1,13 @@
 {
   "name": "@emphori/promise",
   "description": "A strongly typed drop-in replacement for Promises in TypeScript",
-  "keywords": [],
+  "keywords": [
+    "promise",
+    "promises",
+    "strongly-typed",
+    "types",
+    "typescript"
+  ],
   "author": "Emphori (https://emphori.co)",
   "contributors": [
     "Iain Reid <iainreid382@gmail.com> (https://iainjreid.com)"
