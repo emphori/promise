@@ -7,6 +7,7 @@ jobs:
     runs-on: ubuntu-latest
 
     permissions:
+      contents: write # Required to publish a release via GitHub
       id-token: write # Required for NPM provenance via OIDC
 
     steps:
