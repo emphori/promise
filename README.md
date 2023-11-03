@@ -17,8 +17,8 @@ A strongly typed drop-in replacement for Promises in TypeScript.
 
 ## Installation
 
-Promise is available through both NPM and GitHub Packages. Whichever registry
-you prefer to use, the installation instructions should remain the same.
+Promise is available from the NPM registry and as a GitHub Package. Whichever
+source you prefer to use, the installation instructions should remain the same.
 
 ```sh
 # Using NPM
